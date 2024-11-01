@@ -1,0 +1,19 @@
+# Python specific
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Flask specific
+instance/
+*.log
+
+# Generated files
+db.json
+
+# Common system files
+.DS_Store
+Thumbs.db
