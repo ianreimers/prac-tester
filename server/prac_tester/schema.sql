@@ -9,7 +9,7 @@ CREATE TABLE question_group (
 
 CREATE TABLE question (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  question TEXT NOT NULL,
+  question_text TEXT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   question_group_id INTEGER NOT NULL,
   FOREIGN KEY (question_group_id) REFERENCES question_group (id)
@@ -17,7 +17,7 @@ CREATE TABLE question (
 
 CREATE TABLE choice (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  description TEXT NOT NULL,
+  choice_text TEXT NOT NULL,
   explanation TEXT,
   is_correct BOOLEAN NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

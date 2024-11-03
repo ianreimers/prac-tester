@@ -1,19 +1,14 @@
-import functools
-from os import sep
-import pprint
-import json
-
-from flask import (
-    Blueprint, g, jsonify, redirect, render_template, request, session, url_for
-)
+from flask import ( Blueprint, request)
 from prac_tester.db import get_db
-from prac_tester.service import map_questions_with_choices
+from prac_tester.services import QuestionService
 
 bp = Blueprint('question', __name__, url_prefix='/api/question')
 
+question_service = QuestionService()
+
 @bp.route('/')
 def get_all_questions_with_choices():
-    questions = map_questions_with_choices()
+    questions = question_service.map_questions_with_choices()
     return questions
 
 

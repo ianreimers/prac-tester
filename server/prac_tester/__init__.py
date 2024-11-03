@@ -3,6 +3,8 @@ import os
 from flask import Flask
 from flask_cors import CORS, cross_origin
 
+from .blueprints import filemanagement, group, question
+
 # This file is the application factory and tells Python that
 # the prac-tester directory should be treated as a package
 
@@ -39,13 +41,10 @@ def create_app(test_config=None):
     from .import db
     db.init_app(app)
 
-    from . import question
     app.register_blueprint(question.bp)
 
-    from . import group
     app.register_blueprint(group.bp)
 
-    from . import filemanagement
     app.register_blueprint(filemanagement.bp)
 
     return app
