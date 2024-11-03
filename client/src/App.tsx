@@ -5,6 +5,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InputForm from "./components/InputForm";
 import MarkdownForm from "./components/MarkdownForm";
+import ButtonFetchAll from "./components/ButtonFetchAll";
+import ButtonFetchAllGroups from "./components/ButtonFetchAllGroups";
 
 function App() {
   return (
@@ -40,6 +42,10 @@ function App() {
 
           <div className="bg-dark p-5 mt-5">
             <MarkdownForm />
+          </div>
+          <div className="d-flex justify-content-center p-3">
+            <ButtonFetchAll />
+            <ButtonFetchAllGroups />
           </div>
         </Container>
       </body>

@@ -20,11 +20,10 @@ function MarkdownForm() {
 
     const formData = new FormData();
     formData.append("file", file);
-    console.log(formData);
 
-    fetch("http://localhost:5000/", {
+    fetch("http://localhost:5000/api/upload", {
       method: "POST",
-      body: JSON.stringify(formData),
+      body: formData,
     })
       .then((res) => {
         if (!res.ok) {
@@ -33,12 +32,12 @@ function MarkdownForm() {
 
         return res.json();
       })
-      .then((data) => console.log("File uploaded sucessfully", data))
+      .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
 
   return (
-    <Form onSubmit={handleSubmit} encType="multipart/form-data">
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>Default file input example</Form.Label>
         <Form.Control
