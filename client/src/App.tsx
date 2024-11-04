@@ -10,7 +10,7 @@ import ButtonFetchAllGroups from "./components/ButtonFetchAllGroups";
 
 function App() {
   return (
-    <>
+    <body>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <Navbar.Brand>Prac-Tester</Navbar.Brand>
@@ -36,20 +36,18 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <body className="pt-5">
-        <Container>
-          <InputForm />
+      <Container>
+        <InputForm />
 
-          <div className="bg-dark p-5 mt-5">
-            <MarkdownForm />
-          </div>
-          <div className="d-flex justify-content-center p-3">
-            <ButtonFetchAll />
-            <ButtonFetchAllGroups />
-          </div>
-        </Container>
-      </body>
-    </>
+        <div className="bg-dark p-5 mt-5">
+          <MarkdownForm />
+        </div>
+        <div className="d-flex justify-content-center p-3">
+          <ButtonFetchAll />
+          <ButtonFetchAllGroups />
+        </div>
+      </Container>
+    </body>
   );
 }
 
