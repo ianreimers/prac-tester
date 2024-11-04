@@ -1,4 +1,4 @@
 - Run the application
-  - `flask -m flask run`
-  - -- or--
-  - `flask --app <filename> run`
+  - `flask --app pact_tester run --debug`
+- Initialize SQLite db
+  - `flask --app prac_tester init-db`
