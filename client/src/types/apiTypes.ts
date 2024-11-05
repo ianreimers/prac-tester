@@ -10,6 +10,11 @@ export interface Choice {
   choice_text: string;
   is_correct: boolean;
 }
+export interface Collection {
+  id: number;
+  name: string;
+  groups?: Group[];
+}
 export interface Group {
   id: number;
   name: string;

@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.tsx";
 import ErrorPage from "./ErrorPage.tsx";
-import Questions from "./routes/Questions.tsx";
+import Collections from "./routes/Collections.tsx";
 import Submit from "./routes/Submit.tsx";
 import Test from "./routes/Test.tsx";
 
@@ -14,12 +14,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "questions",
-        element: <Questions />,
+        path: "collections",
+        element: <Collections />,
         children: [],
       },
       {
-        path: "questions/test/:groupId",
+        path: "collections/group/test/:groupId",
         element: <Test />,
       },
       {

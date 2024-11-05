@@ -19,8 +19,8 @@ function Root() {
               <Nav.Link as={Link} to={"/"}>
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to={"questions"}>
-                Questions
+              <Nav.Link as={Link} to={"collections"}>
+                Collections
               </Nav.Link>
               <Nav.Link as={Link} to={"submit"}>
                 Submit
