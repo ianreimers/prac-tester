@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List, NewType
 from pydantic import BaseModel, conlist
 
 class Choice(BaseModel):
@@ -15,3 +15,8 @@ class Group(BaseModel):
     id: int
     name: str
     questions: List[Question] = [] # default to an empty list
+
+class Collection(BaseModel):
+    id: int
+    name: str
+    groups: List[Group] = []

@@ -2,3 +2,5 @@
   - `flask --app pact_tester run --debug`
 - Initialize SQLite db
   - `flask --app prac_tester init-db`
+- Generate typescript from pydantic models
+  - `pydantic2ts --module ./prac_tester/models/schema.py --output ../client/src/types/apiTypes.ts`

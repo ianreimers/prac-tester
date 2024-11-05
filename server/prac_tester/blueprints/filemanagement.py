@@ -12,7 +12,7 @@ def upload_file():
     fileService = FileService()
     fileService.file_to_db(f)
 
-    return "File was submitted successfully"
+    return {'message': 'File submitted successfully'}
 
 
 

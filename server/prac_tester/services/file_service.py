@@ -1,7 +1,11 @@
+from typing import Dict
 from flask import current_app
 from prac_tester.db import get_db
+from prac_tester.types import Choice, Question, Collection, ContentDict
+#from prac_tester.models.schema import ParseChoice, ParseCollection, ParseGroup, ParseQuestion
 from prac_tester.repositories import FileRepository
 from werkzeug.datastructures import FileStorage
+import pprint
 import os
 import re
 
@@ -29,9 +33,9 @@ class FileService:
             content = f.read()
 
         content_dict = self._convert_markdown_to_dict(content)
+        # pprint.pp(content_dict, indent=2, width=160)
+        # return "test"
 
-        # print(db.execute('SELECT * FROM question').fetchall()[0][1])
-        # return "File was submitted"
 
         # remove the file after processing
         try:
@@ -41,68 +45,95 @@ class FileService:
 
         try:
             self.file_repo.save_to_db(content_dict)
+            print(db.execute('SELECT * FROM question').fetchall()[0][1])
         except db.Error as e:
             print(f"Error adding dict to db: {e}")
             return f"Error adding dict to db"
 
-    def _allowed_file(self, filename: str):
-        return '.' in filename and \
-            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
+        return f'File added successfully'
+
 
     def _convert_markdown_to_dict(self, markdown_text: str):
-        lines = markdown_text.splitlines()
-        content_dict = {}
+        """
+        content_dict: {
+            collection_name1: {
+                group_name1: [
+                    { 
+                        question_test, 
+                        choices: [{
+                            choice_text,
+                            is_correct
 
-        group_name: str | None = None
-        question_text: str | None = None
-        choices = dict()
-        answer = None
+                        }] 
+                    }
+                ],
+            }
+        }
+
+        # Collection
+        ## Group
+        1. question_text
+        - [x] choice1
+        - choice2
+        """
+
+        lines = markdown_text.splitlines()
+        content_dict: ContentDict = {
+            'Uncollected': {
+                'Ungrouped': []
+            }
+        }
+
+        collection_name: str = 'Uncollected'
+        group_name: str = 'Ungrouped'
+        question_text: str = ''
 
 
         for line in lines:
-            # check for group/chapter/section header
+            # check for a collection name that bundles groups
             if line.startswith('# '):
+                collection_name = line[2:]
+                content_dict[collection_name] = {}
+                continue
 
-                # next group found
-                if group_name != None:
-                    self._add_content_to_dict(content_dict, group_name, question_text, choices, answer)
-                    group_name = None
-                    question_text = None
-                    choices = dict()
-                    answer = None
-
-                group_name = line[2:].strip()
+            # check for a group header that groups questions
+            if line.startswith('## '):
+                group_name = line[3:].strip()
+                content_dict[collection_name][group_name] = []
                 continue
 
             # check for a question
             question_match = re.match(r'^\d+\.', line)
-            if line.startswith('## ') or question_match:
-
-                if question_text != None:
-                    self._add_content_to_dict(content_dict, group_name, question_text, choices, answer)
-                    question_text = None
-                    choices = dict()
-                    answer = None
-
+            if line.startswith('### ') or question_match:
                 question_text = line[3:].strip()
+                question: Question = {
+                    'question_text': question_text,
+                    'choices': [],
+                }
+                content_dict[collection_name][group_name].append(question)
                 continue
 
             # check for choices
             choice_match = re.match(r'^(-|\*)\s', line)
             if choice_match:
-                letter_or_num = line[2:3]
-                potential_answer = line[4:].strip()
-                choices[letter_or_num] = potential_answer
+                choice_text = line[2:].strip()
+                choice: Choice = {
+                    'choice_text': choice_text,
+                    'is_correct': False
+                }
+
+                answer_match = re.match(r'^\[x\]\s', choice_text)
+                if answer_match:
+                    choice['is_correct'] = True
+                    choice['choice_text'] = choice_text[3:].strip()
+
+                group = content_dict[collection_name][group_name]
+                if len(group) == 0:
+                    continue
+
+                curr_question = group[-1]
+                curr_question['choices'].append(choice)
                 continue
-
-            # check for answer
-            answer_match = re.match(r'^(\*\*Answer:*\*\*)|(Answer:)', line)
-            if answer_match:
-                answer = line.split(':')[1].strip()
-
-
-        if group_name is not None:
-            self._add_content_to_dict(content_dict, group_name, question_text, choices, answer)
 
         return content_dict
 
@@ -122,3 +153,6 @@ class FileService:
         return
 
 
+    def _allowed_file(self, filename: str):
+        return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
