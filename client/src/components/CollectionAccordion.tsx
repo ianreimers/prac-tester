@@ -27,7 +27,7 @@ function CollectionAccordion({ collection, eventKeyOffset }: Props) {
         style={{ cursor: "pointer" }}
       >
         <h2>{name}</h2>
-        <Link to={`collection/${id}`} state={{}} className="ms-auto">
+        <Link to={`test/${id}`} state={{ collection }} className="ms-auto">
           <Button>Test</Button>
         </Link>
       </Card.Header>

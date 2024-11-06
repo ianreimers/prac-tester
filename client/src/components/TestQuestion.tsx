@@ -1,22 +1,11 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Choice, Question } from "../types/apiTypes";
+import { hasMultipleAnswers } from "../lib/utils";
 
 interface Props {
   question: Question;
   onNextQuestion: (selectedChoiceId: number) => void;
-}
-
-function hasMultipleAnswers(choices: Choice[]): boolean {
-  let count = 0;
-
-  choices.forEach((choice) => {
-    if (choice.is_correct) {
-      count += 1;
-    }
-  });
-
-  return count > 1;
 }
 
 function TestQuestion({ question, onNextQuestion }: Props) {
@@ -35,12 +24,6 @@ function TestQuestion({ question, onNextQuestion }: Props) {
     onNextQuestion(selectedChoiceId);
     setSelectedChoiceId(-1);
   }
-
-  /*
-    *
-            <Button onClick={() => handleChoiceClick(id)}>
-            </Button>
-    */
 
   return (
     <>

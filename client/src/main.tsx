@@ -5,7 +5,8 @@ import Root from "./routes/Root.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 import Collections from "./routes/Collections.tsx";
 import Submit from "./routes/Submit.tsx";
-import Test from "./routes/Test.tsx";
+import GroupTest from "./routes/GroupTest.tsx";
+import CollectionTest from "./routes/CollectionTest.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +20,12 @@ const router = createBrowserRouter([
         children: [],
       },
       {
+        path: "collections/test/:groupId",
+        element: <CollectionTest />,
+      },
+      {
         path: "collections/group/test/:groupId",
-        element: <Test />,
+        element: <GroupTest />,
       },
       {
         path: "submit",
