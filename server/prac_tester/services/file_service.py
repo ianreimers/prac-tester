@@ -117,6 +117,12 @@ class FileService:
             choice_match = re.match(r'^(-|\*)\s', line)
             if choice_match:
                 choice_text = line[2:].strip()
+
+                # remove empty checkboxes
+                # E.x. "- [ ] abc"
+                if re.match(r'^(-|\*)\s\[\s\]\s', line):
+                    choice_text = line[6:].strip()
+
                 choice: Choice = {
                     'choice_text': choice_text,
                     'is_correct': False
