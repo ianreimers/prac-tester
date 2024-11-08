@@ -18,7 +18,7 @@ function GroupAccordion({ group, eventKeyOffset }: Props) {
   return (
     <Card className="border-0">
       <Card.Header
-        className="d-flex"
+        className="d-flex align-items-center"
         onClick={decoratedOnClick}
         style={{ cursor: "pointer" }}
       >
@@ -36,7 +36,10 @@ function GroupAccordion({ group, eventKeyOffset }: Props) {
               return (
                 <Accordion.Item key={id} eventKey={`${eventKeyOffset + i}`}>
                   <Accordion.Header>
-                    <strong>{i + 1}</strong>. {question_text}
+                    <p className="pb-0 mb-0 me-2">
+                      <strong>{i + 1}</strong>.
+                    </p>{" "}
+                    <p className="pb-0 mb-0">{question_text}</p>
                   </Accordion.Header>
                   <Accordion.Body>
                     <ChoiceList choices={choices} />

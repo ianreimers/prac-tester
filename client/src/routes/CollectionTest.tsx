@@ -68,7 +68,7 @@ function CollectionTest() {
 
   return (
     <Container>
-      <h1 className="text-center py-5">{name} Test</h1>
+      <h1 className="text-center py-3 fw-bold">{name} Test</h1>
       {testCompleted && <CollectionTestResults testQuestions={testQuestions} />}
       {!testCompleted && !testQuestions.length && (
         <div className="d-flex justify-content-center gap-3">

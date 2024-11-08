@@ -51,16 +51,18 @@ function CollectionTestQuestion({ testQuestion, onSubmit }: Props) {
   }
 
   return (
-    <>
-      <p>{question_text}</p>
-      <form className="d-flex flex-column justify-content-around align-items-center">
+    <div className="mx-auto" style={{ maxWidth: "50rem" }}>
+      <p className="fs-4 mx-auto d-flex justify-content-center mb-4">
+        {question_text}
+      </p>
+      <form className="d-flex flex-column justify-content-around align-items-center mx-auto">
         {choices?.map((choice) => {
           const { id, choice_text } = choice;
 
           return (
-            <div key={id} className="w-100 form-check" id={id.toString()}>
+            <div key={id} className="w-100 form-check ps-0" id={id.toString()}>
               <Button
-                className="d-flex w-100 mb-3 py-4"
+                className="d-flex w-100 mb-3 py-3 align-items-center"
                 variant="outline-dark"
                 active={selectedChoices.includes(id)}
                 onClick={() => handleChoiceChange(id)}
@@ -75,7 +77,7 @@ function CollectionTestQuestion({ testQuestion, onSubmit }: Props) {
                 />
                 <label
                   htmlFor={id.toString()}
-                  className="form-check-label ms-5"
+                  className="form-check-label ms-4 fs-5"
                   style={{ cursor: "pointer" }}
                   onClick={undefined}
                 >
@@ -87,11 +89,13 @@ function CollectionTestQuestion({ testQuestion, onSubmit }: Props) {
         })}
       </form>
       {answerCount === selectedChoices.length ? (
-        <Button className="ms-auto" onClick={handleNextQuestionBtnClick}>
-          Next Question
-        </Button>
+        <div className="d-block w-100 d-flex">
+          <Button className="ms-auto" onClick={handleNextQuestionBtnClick}>
+            Next Question
+          </Button>
+        </div>
       ) : null}
-    </>
+    </div>
   );
 }
 

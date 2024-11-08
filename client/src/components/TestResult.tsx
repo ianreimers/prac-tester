@@ -10,7 +10,7 @@ function TestResult({ testQuestion }: Props) {
     testQuestion;
 
   return (
-    <Card style={{ width: "500px" }}>
+    <Card style={{ width: "20rem" }}>
       <Card.Header>{question_text}</Card.Header>
       <Card.Body>
         <ListGroup>

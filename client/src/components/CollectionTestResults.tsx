@@ -11,8 +11,8 @@ function CollectionTestResults({ testQuestions }: Props) {
 
   return (
     <>
-      <h1>Test Results</h1>
-      <div className="d-flex felx-wrap gap-4">
+      <h1 className="text-center mb-4">Test Results</h1>
+      <div className="d-flex flex-wrap justify-content-center gap-4">
         {testQuestions.map((testQuestion) => {
           return <TestResult testQuestion={testQuestion} />;
         })}

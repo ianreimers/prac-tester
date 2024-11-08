@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Group } from "../types/apiTypes";
-import { Container } from "react-bootstrap";
+import { Container, ProgressBar } from "react-bootstrap";
 import { useState } from "react";
 import { GroupTestState, type TestQuestion } from "../types/uiTypes";
 import { initTestQuestions } from "../lib/utils";
@@ -15,6 +15,7 @@ function GroupTest() {
     currQuestionIndex: 0,
   });
   const { testQuestions, currQuestionIndex } = testState;
+  const progress = (currQuestionIndex / testQuestions.length) * 100;
 
   if (!group.questions) {
     return (
@@ -51,13 +52,20 @@ function GroupTest() {
 
   return (
     <Container>
-      <h1 className="text-center py-5">{group.name} Test</h1>
+      <h1 className="text-center py-4 fw-bold">{group.name} Test</h1>
       {testCompleted && <CollectionTestResults testQuestions={testQuestions} />}
       {!testCompleted && testQuestions.length > 0 && (
-        <CollectionTestQuestion
-          testQuestion={testQuestions[currQuestionIndex]}
-          onSubmit={handleNextQuestion}
-        />
+        <>
+          <ProgressBar
+            now={progress}
+            label={`${currQuestionIndex}/${testQuestions.length}`}
+            className="mb-4"
+          />
+          <CollectionTestQuestion
+            testQuestion={testQuestions[currQuestionIndex]}
+            onSubmit={handleNextQuestion}
+          />
+        </>
       )}
     </Container>
   );
